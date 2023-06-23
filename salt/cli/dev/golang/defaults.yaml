@@ -1,0 +1,6 @@
+golang:
+  prefix: /usr/local
+  go_root: /usr/local/go
+  go_path: /var/lib/golang
+  version: "1.19"
+  priority: 59

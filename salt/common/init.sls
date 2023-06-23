@@ -1,0 +1,3 @@
+include:
+  - .ca-certificates
+  - .packages
