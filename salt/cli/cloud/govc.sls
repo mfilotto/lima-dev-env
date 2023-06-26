@@ -27,3 +27,8 @@ govc-installed:
 govc-completion-installed:
   cmd.run:
     - name: curl -L https://raw.githubusercontent.com/vmware/govmomi/v{{ pillar['govc']['version'] }}/scripts/govc_bash_completion -o /etc/bash_completion.d/govc
+    - unless:
+        # asserts govc is on our path
+        - which govc
+        # asserts the version of govc
+        - govc version | cut -d " " -f2 | grep {{ pillar['govc']['version'] }}
