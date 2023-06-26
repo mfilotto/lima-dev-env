@@ -1,21 +1,5 @@
 include:
-  - .n
-  - .nodejs
-  - .npm
-  - .ncu
-  - .bower
-  - .commitizen
-  - .gulp
-  - .ng
-  #- .java
-  #- .gradle
-  - .golang
-  #- .kubectl
-  #- .helm
-  #- .k9s
   - .fzf
-  - .speed
-  #- .ksd
-  #- .govc
-  #- .azure-cli
-  #- .terraform
+  #- .speed
+  #- .dev
+  - .cloud

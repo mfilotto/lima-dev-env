@@ -1,5 +1,5 @@
 base:
   '*':
-    - artifactory
+    #- artifactory
     - common
     - cli

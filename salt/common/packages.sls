@@ -1,14 +1,14 @@
 common_packages:
   pkg.latest:
     - pkgs:
-      - curl
+      #- curl
       #- wget
       #- htop
       #- strace
       #- vim-enhanced
       #- nano
       - dos2unix
-      - git
+      #- git
       - unzip
       - jq
       - tree
