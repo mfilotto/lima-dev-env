@@ -1,5 +1,5 @@
 **Install Lima Dev environment**
-- Create your distro: limactl start template://ubuntu-lts --tty=false
+- Create your distro: limactl start --name=default template://ubuntu-lts --tty=false
 - Start your distro
   - limactl start
   - lima
