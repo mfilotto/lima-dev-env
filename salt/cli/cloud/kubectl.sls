@@ -33,10 +33,10 @@ kubeconfig_directory_present:
     - name: {{ userhome }}/.kube
     - user: {{ username }}
 
-kubeconfig_files_copied:
-  file.recurse:
-    - name: {{ userhome }}/.kube
-    - source: salt://files/home/userprofile/.kube
+#kubeconfig_files_copied:
+#  file.recurse:
+#    - name: {{ userhome }}/.kube
+#    - source: salt://files/home/userprofile/.kube
 
 kubeconfig_profile_installed:
    cmd.run:
