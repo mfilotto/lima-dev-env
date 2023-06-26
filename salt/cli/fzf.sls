@@ -1,22 +1,25 @@
+{% set username = salt['environ.get']('SUDO_USER') %}
+{% set userhome = pillar['userhome'] | format( username )  %}
+
 fzf_cloned:
   git.latest:
     - name: https://github.com/junegunn/fzf.git
-    - target: /home/{{ pillar['username'] }}/.fzf
-    - user: {{ pillar['username'] }}
+    - target: {{ userhome }}/.fzf
+    - user: {{ username }}
     - rev: master
     - depth: 1
 
 fzf_installed:
   cmd.run:
-    - name: /home/{{ pillar['username'] }}/.fzf/install --all
-    - runas: {{ pillar['username'] }}
+    - name: {{ userhome }}/.fzf/install --all
+    - runas: {{ username }}
     - unless:
       - which fzf
 
 fzf_profile_installed:
    cmd.run:
      - names:
-       - echo "" >> /home/{{ pillar['username'] }}/.bashrc
-       - echo "export FZF_DEFAULT_OPTS='--height 20% --layout=reverse --border'" >> /home/{{ pillar['username'] }}/.bashrc
+       - echo "" >> {{ userhome }}/.bashrc
+       - echo "export FZF_DEFAULT_OPTS='--height 20% --layout=reverse --border'" >> {{ userhome }}/.bashrc
      - unless:
-         - cat /home/{{ pillar['username'] }}/.bashrc | grep FZF_DEFAULT_OPTS
+         - cat {{ userhome }}/.bashrc | grep FZF_DEFAULT_OPTS

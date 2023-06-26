@@ -1,3 +1,6 @@
+{% set username = salt['environ.get']('SUDO_USER') %}
+{% set userhome = pillar['userhome'] | format( username )  %}
+
 kubectl_installed:
   cmd.run:
     - names:
@@ -27,21 +30,21 @@ kubectl_completion:
 
 kubeconfig_directory_present:
   file.directory:
-    - name: /home/{{ pillar['username'] }}/.kube
-    - user: {{ pillar['username'] }}
+    - name: {{ userhome }}/.kube
+    - user: {{ username }}
 
 kubeconfig_files_copied:
   file.recurse:
-    - name:  /home/{{ pillar['username'] }}/.kube
+    - name: {{ userhome }}/.kube
     - source: salt://files/home/userprofile/.kube
 
 kubeconfig_profile_installed:
    cmd.run:
      - names:
-       - echo "" >> /home/{{ pillar['username'] }}/.bashrc
-       - echo "export KUBECONFIG=/home/{{ pillar['username'] }}/.kube/config.dev-reader:/home/{{ pillar['username'] }}/.kube/config.prod-reader" >> /home/{{ pillar['username'] }}/.bashrc
+       - echo "" >> {{ userhome }}/.bashrc
+       - echo "export KUBECONFIG=$HOME/.kube/config.dev:$HOME/.kube/config.prod" >> {{ userhome }}/.bashrc
      - unless:
-         - cat /home/{{ pillar['username'] }}/.bashrc | grep KUBECONFIG
+         - cat {{ userhome }}/.bashrc | grep KUBECONFIG
 
 kubectx_cloned:
   git.latest:
@@ -68,12 +71,12 @@ kube-ps1_cloned:
 kube-ps1_profile_installed:
    cmd.run:
      - names:
-       - echo "" >> /home/{{ pillar['username'] }}/.bashrc
-       - echo "PS1='[\u@\h \W \$(kube_ps1)]\$ '" >> /home/{{ pillar['username'] }}/.bashrc
-       - echo "export KUBE_PS1_SYMBOL_ENABLE=false" >> /home/{{ pillar['username'] }}/.bashrc
-       - echo "source /opt/kube-ps1/kube-ps1.sh" >> /home/{{ pillar['username'] }}/.bashrc
+       - echo "" >> {{ userhome }}/.bashrc
+       - echo "PS1='[\u@\h \W \$(kube_ps1)]\$ '" >> {{ userhome }}/.bashrc
+       - echo "export KUBE_PS1_SYMBOL_ENABLE=false" >> {{ userhome }}/.bashrc
+       - echo "source /opt/kube-ps1/kube-ps1.sh" >> {{ userhome }}/.bashrc
      - unless:
-         - cat /home/{{ pillar['username'] }}/.bashrc | grep "/opt/kube-ps1/kube-ps1.sh"
+         - cat {{ userhome }}/.bashrc | grep "/opt/kube-ps1/kube-ps1.sh"
 
 stern_installed:
   cmd.run:

@@ -1,5 +1,5 @@
 # Default pillar values
-username: wsl
+userhome: /home/%s.linux
 
 locale: fr_FR.UTF-8
 

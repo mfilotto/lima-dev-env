@@ -1,3 +1,5 @@
+{% set username = salt['environ.get']('SUDO_USER') %}
+
 helm-installed:
   cmd.run:
     - names:
@@ -6,7 +8,7 @@ helm-installed:
       - chown root:root /usr/local/bin/helm
       - chmod u+x /usr/local/bin/helm
       - rm -rf /root/linux-amd64
-    - unless: runuser -l {{ pillar['username'] }} -c 'helm version --client | cut -d "\"" -f2 | grep {{ pillar['kubernetes']['helm']['version'] }}'
+    - unless: runuser -l {{ username }} -c 'helm version --client | cut -d "\"" -f2 | grep {{ pillar['kubernetes']['helm']['version'] }}'
 
 helm_completion:
   cmd.run:
