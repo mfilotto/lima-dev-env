@@ -7,4 +7,4 @@ k9s_installed:
         # asserts ark is on our path
         - which k9s
         # asserts the version of ark
-        - k9s version | head -n 1 | cut -d " " -f1 | cut -d ":" -f2 | grep {{ pillar['k9s']['version'] }}
+        - k9s version -s | head -n 1 | grep {{ pillar['k9s']['version'] }}
