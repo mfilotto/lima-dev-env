@@ -5,5 +5,5 @@
   - lima
 - Clone lima dev env repo from Github
     - `cd /srv && sudo git clone https://github.com/mfilotto/lima-dev-env.git lima`
-- Install dev env
-    - `./install.sh`
+- Install lima dev env
+    - `/srv/lima/install.sh`
