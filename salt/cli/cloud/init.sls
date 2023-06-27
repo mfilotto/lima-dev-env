@@ -1,8 +1,9 @@
 include:
-  - .kubectl
+  - .azure-cli
+  - .flux
+  - .govc
   - .helm
   - .k9s
-  #- .ksd
-  - .govc
-  - .azure-cli
+  - .kubectl
+  - .ksd
   - .terraform
