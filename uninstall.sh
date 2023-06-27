@@ -6,10 +6,10 @@ printmainstep() {
 }
 
 printmainstep "Stop lima vm"
-limactl stop -f
+limactl stop -f default
 
 printmainstep "Delete lima vm"
-limactl delete
+limactl delete default
 
 printmainstep "Uninstall lima"
 brew uninstall lima
