@@ -45,7 +45,7 @@ brew install lima
 printmainstep "Create workspace folder $WORKSPACE"
 mkdir -p $WORKSPACE
 
-if ! limactl list -q | grep default; then
+if ! limactl list -q | grep -q default; then
     printmainstep "Create your distro"
     limactl start --name=default template://ubuntu-lts --tty=false
 fi
