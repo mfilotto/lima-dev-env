@@ -82,4 +82,4 @@ printmainstep "Source .bashrc"
 printmainstep "Enter inside lima vm in workspace folder"
 limactl shell --workdir $WORKSPACE default
 
-echo "salt command example: sudo salt-call --local grains.items"
+#echo "salt command example: sudo salt-call --local grains.items"
