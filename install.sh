@@ -59,14 +59,14 @@ printmainstep "Install salt minion"
 lima sudo apt install -y salt-minion
 
 printmainstep "Configure salt minion"
-lima sh -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
+limactl shell --debug default bash -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
 file_client: local
 file_roots:
   base:
-    - $WORKSPACE/lima-dev-env/salt
+    - ${WORKSPACE}/lima-dev-env/salt
 pillar_roots:
   base:
-    - $WORKSPACE/lima-dev-env/pillar
+    - ${WORKSPACE}/lima-dev-env/pillar
 EOF'
 
 printmainstep "Install lima dev env with salt"
