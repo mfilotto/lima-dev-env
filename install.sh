@@ -51,7 +51,7 @@ if ! limactl list -q | grep -q default; then
 fi
 
 printmainstep "Clone lima dev env from Github repo"
-lima sh -c 'cd $(WORKSPACE) && sudo git clone https://github.com/mfilotto/lima-dev-env.git`'
+lima bash -c 'cd $(WORKSPACE) && sudo git clone https://github.com/mfilotto/lima-dev-env.git`'
 
 printmainstep "Add Saltstack apt source file"
 UBUNTU_CODENAME=`lsb_release -cs`
