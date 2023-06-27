@@ -49,8 +49,8 @@ if ! test -d $WORKSPACE/lima-dev-env; then
 fi
 
 printmainstep "Add Saltstack apt source file"
-UBUNTU_CODENAME=`lsb_release -cs`
-UBUNTU_RELEASE=`lsb_release -rs`
+UBUNTU_CODENAME=`lima lsb_release -cs`
+UBUNTU_RELEASE=`lima lsb_release -rs`
 lima bash -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
 lima bash -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/latest $(lsb_release -cs) main" > tee /etc/apt/sources.list.d/salt.list'
 
