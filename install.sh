@@ -51,8 +51,8 @@ fi
 printmainstep "Add Saltstack apt source file"
 UBUNTU_CODENAME=`lima lsb_release -cs`
 UBUNTU_RELEASE=`lima lsb_release -rs`
-lima bash -ce 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
-lima bash -ce 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/latest $(lsb_release -cs) main" > /etc/apt/sources.list.d/salt.list'
+lima sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_RELEASE/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+lima echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_RELEASE/amd64/latest $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/salt.list'
 
 printmainstep "Update packages"
 lima sudo apt update
