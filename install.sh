@@ -25,13 +25,6 @@ printcomment () {
     echo -e "\033[2m# ${1} \033[22m"
 }
 
-OS=`lsb_release -is`
-if [ $OS != "Ubuntu" ]
-then
-    printerror "Your lima linux distro must be an Ubuntu, this one is $OS"
-    exit 1
-fi
-
 if ! command -v git &> /dev/null
 then
     printerror "git must be installed"
