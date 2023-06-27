@@ -54,10 +54,8 @@ printmainstep "Clone lima dev env from Github repo"
 lima bash -c 'cd $WORKSPACE && sudo git clone https://github.com/mfilotto/lima-dev-env.git'
 
 printmainstep "Add Saltstack apt source file"
-UBUNTU_CODENAME=`lsb_release -cs`
-UBUNTU_RELEASE=`lsb_release -rs`
-lima sh -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_RELEASE/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
-lima sh -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_RELEASE/amd64/latest $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/salt.list'
+lima bash -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
+lima bash -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/latest $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/salt.list'
 
 printmainstep "Update packages"
 lima sudo apt update
