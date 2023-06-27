@@ -45,7 +45,10 @@ fi
 
 if ! test -d $WORKSPACE/lima-dev-env; then
     printmainstep "Clone lima dev env from Github repo"
-    lima bash -c 'cd /tmp/lima/workspace && sudo git clone https://github.com/mfilotto/lima-dev-env.git'
+    limactl shell --workdir $WORKSPACE default 'sudo git clone https://github.com/mfilotto/lima-dev-env.git'
+else 
+    printmainstep "Pull lima dev env from Github repo"
+    limactl shell --workdir $WORKSPACE/lima-dev-env default 'sudo git pull'
 fi
 
 printmainstep "Add Saltstack apt source file"
@@ -76,7 +79,7 @@ printmainstep "Source .bashrc"
 #lima source $HOME/.bashrc
 #limactl shell --debug default bash 'source <(cat /etc/profile.d/*)'
 
-printmainstep "Enter inside lima vm "
-lima
+printmainstep "Enter inside lima vm in workspace folder"
+limactl shell --workdir $WORKSPACE default
 
 echo "salt command example: sudo salt-call --local grains.items"
