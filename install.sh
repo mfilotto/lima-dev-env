@@ -73,8 +73,8 @@ printmainstep "Install lima dev env with salt"
 lima sudo salt-call --local state.highstate
 
 printmainstep "Source .bashrc"
-lima source $HOME/.bashrc
-lima source /etc/profile.d/*
+#lima source $HOME/.bashrc
+#limactl shell --debug default bash 'source <(cat /etc/profile.d/*)'
 
 printmainstep "Enter inside lima vm "
 lima
