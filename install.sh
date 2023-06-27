@@ -43,8 +43,10 @@ if ! limactl list -q | grep -q default; then
     limactl start --name=default template://ubuntu-lts --tty=false
 fi
 
-printmainstep "Clone lima dev env from Github repo"
-lima bash -c 'cd /tmp/lima/workspace && (sudo git -C lima-dev-env pull || sudo git clone https://github.com/mfilotto/lima-dev-env.git'
+if ! test -d $WORKSPACE/lima-dev-en; then
+    printmainstep "Clone lima dev env from Github repo"
+    lima bash -c 'cd /tmp/lima/workspace && sudo git clone https://github.com/mfilotto/lima-dev-env.git'
+fi
 
 printmainstep "Add Saltstack apt source file"
 lima bash -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$(lsb_release -rs)/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
