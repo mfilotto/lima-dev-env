@@ -48,11 +48,8 @@ mkdir -p $WORKSPACE
 printmainstep "Create your distro"
 limactl start --name=default template://ubuntu-lts --tty=false
 
-printmainstep "Start your distro"
-limactl start
-
 printmainstep "Clone lima dev env from Github repo"
-lima sh -c 'cd $WORKSPACE && sudo git clone https://github.com/mfilotto/lima-dev-env.git`'
+lima sh -c 'cd $(WORKSPACE) && sudo git clone https://github.com/mfilotto/lima-dev-env.git`'
 
 printmainstep "Add Saltstack apt source file"
 UBUNTU_CODENAME=`lsb_release -cs`
