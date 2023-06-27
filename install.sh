@@ -45,10 +45,10 @@ fi
 
 if ! test -d $WORKSPACE/lima-dev-env; then
     printmainstep "Clone lima dev env from Github repo"
-    limactl shell --workdir $WORKSPACE default 'sudo git clone https://github.com/mfilotto/lima-dev-env.git'
+    limactl shell --workdir $WORKSPACE default sh -c 'sudo git clone https://github.com/mfilotto/lima-dev-env.git'
 else 
     printmainstep "Pull lima dev env from Github repo"
-    limactl shell --workdir $WORKSPACE/lima-dev-env default 'sudo git pull'
+    limactl shell --workdir $WORKSPACE/lima-dev-env default sh -c 'sudo git pull'
 fi
 
 printmainstep "Add Saltstack apt source file"
@@ -62,7 +62,7 @@ printmainstep "Install salt minion"
 lima sudo apt install -y salt-minion
 
 printmainstep "Configure salt minion"
-limactl shell --debug default bash -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
+limactl shell --debug default sh -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
 file_client: local
 file_roots:
   base:
