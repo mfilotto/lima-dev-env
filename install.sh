@@ -50,7 +50,7 @@ fi
 
 printmainstep "Add Saltstack apt source file"
 lima sh -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
-lima sh -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/amd64/latest `sb_release -rs` main" | sudo tee /etc/apt/sources.list.d/salt.list'
+lima sh -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/amd64/latest `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/salt.list'
 
 printmainstep "Update packages"
 lima sudo apt update
