@@ -63,10 +63,10 @@ limactl shell --debug default bash -c 'cat << EOF | sudo tee /etc/salt/minion.d/
 file_client: local
 file_roots:
   base:
-    - ${WORKSPACE}/lima-dev-env/salt
+    - /tmp/lima/workspace/lima-dev-env/salt
 pillar_roots:
   base:
-    - ${WORKSPACE}/lima-dev-env/pillar
+    - /tmp/lima/workspace/lima-dev-env/pillar
 EOF'
 
 printmainstep "Install lima dev env with salt"
