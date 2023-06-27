@@ -45,8 +45,10 @@ brew install lima
 printmainstep "Create workspace folder $WORKSPACE"
 mkdir -p $WORKSPACE
 
-printmainstep "Create your distro"
-limactl start --name=default template://ubuntu-lts --tty=false
+if ! limactl list -q | grep default; then
+    printmainstep "Create your distro"
+    limactl start --name=default template://ubuntu-lts --tty=false
+fi
 
 printmainstep "Clone lima dev env from Github repo"
 lima sh -c 'cd $(WORKSPACE) && sudo git clone https://github.com/mfilotto/lima-dev-env.git`'
