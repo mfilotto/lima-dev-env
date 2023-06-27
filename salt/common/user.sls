@@ -4,4 +4,4 @@ default-user-is-admin::
   user.present:
     - name: {{ username }}
     - groups:
-      - wheel
+      - sudo
