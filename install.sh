@@ -43,7 +43,7 @@ if ! limactl list -q | grep -q default; then
     limactl start --name=default template://ubuntu-lts --tty=false
 fi
 
-if ! test -d $WORKSPACE/lima-dev-en; then
+if ! test -d $WORKSPACE/lima-dev-env; then
     printmainstep "Clone lima dev env from Github repo"
     lima bash -c 'cd /tmp/lima/workspace && sudo git clone https://github.com/mfilotto/lima-dev-env.git'
 fi
