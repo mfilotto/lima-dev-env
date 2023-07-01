@@ -7,3 +7,4 @@ include:
   - .kubectl
   - .ksd
   - .terraform
+  - .velero
