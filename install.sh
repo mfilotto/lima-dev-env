@@ -40,7 +40,8 @@ mkdir -p $WORKSPACE
 
 if ! limactl list -q | grep -q default; then
     printmainstep "Create your distro"
-    limactl start --name=default template://ubuntu-lts --tty=false
+    cat /usr/local/share/lima/examples/ubuntu-lts.yaml | sed 's/~/~\/workspace/g' | sed -e '/.*~\/workspace.*/a\
+  writable: true' | limactl start --name=default --tty=false -
 fi
 
 if ! test -d $WORKSPACE/lima-dev-env; then
