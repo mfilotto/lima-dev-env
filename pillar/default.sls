@@ -41,6 +41,9 @@ kubernetes:
   stern:
     version: 1.22.0
 
+ksd:
+  version: 1.0.7
+
 kustomize:
   version: v4.5.7
 

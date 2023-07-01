@@ -1,5 +1,5 @@
 include:
   - .fzf
   #- .speed
-  - .dev
+  #- .dev
   - .cloud
