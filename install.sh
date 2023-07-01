@@ -31,7 +31,7 @@ then
     exit 1
 fi
 
-WORKSPACE="/tmp/lima/workspace"
+WORKSPACE="$HOME/workspace"
 printmainstep "Install lima with brew"
 brew install lima
 
@@ -63,14 +63,14 @@ printmainstep "Install salt minion"
 lima sudo apt install -y salt-minion
 
 printmainstep "Configure salt minion"
-limactl shell --debug default sh -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
+limactl shell --workdir $WORKSPACE --debug default sh -c 'cat << EOF | sudo tee /etc/salt/minion.d/masterless.conf > /dev/null
 file_client: local
 file_roots:
   base:
-    - /tmp/lima/workspace/lima-dev-env/salt
+    - $PWD/lima-dev-env/salt
 pillar_roots:
   base:
-    - /tmp/lima/workspace/lima-dev-env/pillar
+    - $PWD/lima-dev-env/pillar
 EOF'
 
 printmainstep "Install lima dev env with salt"
