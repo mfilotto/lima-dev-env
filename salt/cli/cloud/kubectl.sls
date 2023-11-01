@@ -1,10 +1,10 @@
-{% set username = salt['environ.get']('SUDO_USER') %}
+{% set username = salt['environ.get']('SUDO_USER') if salt['environ.has_value']('SUDO_USER') else salt['environ.get']('USER')  %}
 {% set userhome = pillar['userhome'] | format( username )  %}
 
 kubectl_installed:
   cmd.run:
     - names:
-      - curl -LO https://storage.googleapis.com/kubernetes-release/release/{{ pillar['kubernetes']['version'] }}/bin/linux/amd64/kubectl
+      - curl -LO https://storage.googleapis.com/kubernetes-release/release/{{ pillar['kubernetes']['version'] }}/bin/linux/{{ salt['grains.get']('osarch') }}/kubectl
       - chmod +x kubectl
       - mv kubectl /usr/local/bin/
     - runas: root
@@ -42,7 +42,7 @@ kubeconfig_profile_installed:
    cmd.run:
      - names:
        - echo "" >> {{ userhome }}/.bashrc
-       - echo "export KUBECONFIG=$HOME/.kube/config.dev:$HOME/.kube/config.prod" >> {{ userhome }}/.bashrc
+       - echo "export KUBECONFIG=\$HOME/.kube/config.dev:\$HOME/.kube/config.prod" >> {{ userhome }}/.bashrc
      - unless:
          - cat {{ userhome }}/.bashrc | grep KUBECONFIG
 
@@ -81,7 +81,7 @@ kube-ps1_profile_installed:
 stern_installed:
   cmd.run:
     - names:
-      - curl -L https://github.com/stern/stern/releases/download/v{{ pillar['kubernetes']['stern']['version'] }}/stern_{{ pillar['kubernetes']['stern']['version'] }}_linux_amd64.tar.gz | tar xzvf - -C /usr/local/bin
+      - curl -L https://github.com/stern/stern/releases/download/v{{ pillar['kubernetes']['stern']['version'] }}/stern_{{ pillar['kubernetes']['stern']['version'] }}_linux_{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin
       - chmod +x /usr/local/bin/stern
     - runas: root
     - unless:

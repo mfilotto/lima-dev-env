@@ -2,7 +2,7 @@ talosctl_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/talosctl
-      - curl -L https://github.com/siderolabs/talos/releases/download/{{ pillar['talosctl']['version'] }}/talosctl-linux-amd64 -o /usr/local/bin/talosctl
+      - curl -L https://github.com/siderolabs/talos/releases/download/{{ pillar['talosctl']['version'] }}/talosctl-linux-{{ salt['grains.get']('osarch') }} -o /usr/local/bin/talosctl
       - chmod +x /usr/local/bin/talosctl
     - runas: root
     - unless:

@@ -1,7 +1,8 @@
+{% set osarch = 'arm64' if salt['grains.get']('osarch') == 'arm64' else 'x86_64'  %}
 ksd_installed:
   cmd.run:
     - names:
-      - curl -L https://github.com/mfuentesg/ksd/releases/download/v{{ pillar['ksd']['version'] }}/ksd_{{ pillar['ksd']['version'] }}_Linux_x86_64.tar.gz | tar xzvf - -C /usr/local/bin
+      - curl -L https://github.com/mfuentesg/ksd/releases/download/v{{ pillar['ksd']['version'] }}/ksd_{{ pillar['ksd']['version'] }}_Linux_{{ osarch }}.tar.gz | tar xzvf - -C /usr/local/bin
       - chmod +x /usr/local/bin/ksd
     - runas: root
     - unless:

@@ -2,7 +2,7 @@ clusterctl_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/clusterctl
-      - curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/{{ pillar['clusterctl']['version'] }}/clusterctl-linux-amd64 -o /usr/local/bin/clusterctl
+      - curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/{{ pillar['clusterctl']['version'] }}/clusterctl-linux-{{ salt['grains.get']('osarch') }} -o /usr/local/bin/clusterctl
       - chmod +x /usr/local/bin/clusterctl
     - runas: root
     - unless:

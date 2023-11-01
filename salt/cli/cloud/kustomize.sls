@@ -2,7 +2,7 @@ kustomize_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/kustomize
-      - curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F{{ pillar['kustomize']['version'] }}/kustomize_{{ pillar['kustomize']['version'] }}_linux_amd64.tar.gz | tar xzvf - -C /usr/local/bin
+      - curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F{{ pillar['kustomize']['version'] }}/kustomize_{{ pillar['kustomize']['version'] }}_linux_{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin
       - chown root:root /usr/local/bin/kustomize
     - runas: root
     - unless:

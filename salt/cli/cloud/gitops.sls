@@ -1,8 +1,10 @@
+{% set osarch = 'arm64' if salt['grains.get']('osarch') == 'arm64' else 'x86_64'  %}
+
 gitops_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/gitops
-      - curl -L https://github.com/weaveworks/weave-gitops/releases/download/{{ pillar['gitops']['version'] }}/gitops-linux-x86_64.tar.gz | tar xz -C /tmp
+      - curl -L https://github.com/weaveworks/weave-gitops/releases/download/{{ pillar['gitops']['version'] }}/gitops-linux-{{ osarch }}.tar.gz | tar xz -C /tmp
       - chown root:root /tmp/gitops
       - mv /tmp/gitops /usr/local/bin
     - runas: root

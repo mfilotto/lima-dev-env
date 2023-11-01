@@ -13,3 +13,6 @@ limactl delete default
 
 printmainstep "Uninstall lima"
 brew uninstall lima
+
+printmainstep "Uninstall jq"
+brew uninstall jq

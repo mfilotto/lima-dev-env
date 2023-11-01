@@ -69,7 +69,7 @@ talosctl:
   version: v1.2.5 
 
 k9s:
-  version: v0.26.7
+  version: v0.27.4
 
 nova:
   version: 3.2.0
@@ -96,7 +96,7 @@ govc:
   version: 0.27.4
 
 azure-cli:
-  version: 2.45.0
+  version: 2.53.0
   repo:
     baseurl: https://packages.microsoft.com/repos/azure-cli
 

@@ -1,7 +1,7 @@
 pluto_installed:
   cmd.run:
     - names:
-      - rm -rf /usr/local/bin/pluto && curl -L https://github.com/FairwindsOps/pluto/releases/download/v{{ pillar['pluto']['version'] }}/pluto_{{ pillar['pluto']['version'] }}_linux_amd64.tar.gz | tar xzvf - -C /usr/local/bin && chown root:root /usr/local/bin/pluto
+      - rm -rf /usr/local/bin/pluto && curl -L https://github.com/FairwindsOps/pluto/releases/download/v{{ pillar['pluto']['version'] }}/pluto_{{ pillar['pluto']['version'] }}_linux_{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin && chown root:root /usr/local/bin/pluto
     - runas: root
     - unless:
         # asserts ark is on our path

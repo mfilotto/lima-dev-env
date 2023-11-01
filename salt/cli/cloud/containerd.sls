@@ -20,7 +20,7 @@ containerd_conf_present:
 nerdctl_installed:
   cmd.run:
     - names:
-      - rm -rf /usr/local/bin/nerdctl && curl -L https://github.com/containerd/nerdctl/releases/download/v{{ pillar['nerdctl']['version'] }}/nerdctl-{{ pillar['nerdctl']['version'] }}-linux-amd64.tar.gz | tar xzvf - -C /usr/local/bin
+      - rm -rf /usr/local/bin/nerdctl && curl -L https://github.com/containerd/nerdctl/releases/download/v{{ pillar['nerdctl']['version'] }}/nerdctl-{{ pillar['nerdctl']['version'] }}-linux-{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin
     - runas: root
     - unless:
         # asserts ark is on our path

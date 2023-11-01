@@ -1,3 +1,5 @@
+{% set osarch = 'arm64' if salt['grains.get']('osarch') == 'arm64' else 'x86_64'  %}
+
 govc-env-installed:
   file.managed:
     - name: /etc/profile.d/env-govc.sh 
@@ -11,10 +13,10 @@ govc-env-installed:
 govc-installed:
   cmd.run:
     - names:
-      - mkdir -p /root/linux-amd64/govc
-      - rm -rf /usr/local/bin/govc && curl -L https://github.com/vmware/govmomi/releases/download/v{{ pillar['govc']['version'] }}/govc_Linux_x86_64.tar.gz | tar xzvf - -C /root/linux-amd64/govc
-      - mv /root/linux-amd64/govc/govc /usr/local/bin/govc
-      - rm -rf /root/linux-amd64
+      - mkdir -p /root/linux-{{ salt['grains.get']('osarch') }}/govc
+      - rm -rf /usr/local/bin/govc && curl -L https://github.com/vmware/govmomi/releases/download/v{{ pillar['govc']['version'] }}/govc_Linux_{{ osarch }}.tar.gz | tar xzvf - -C /root/linux-{{ salt['grains.get']('osarch') }}/govc
+      - mv /root/linux-{{ salt['grains.get']('osarch') }}/govc/govc /usr/local/bin/govc
+      - rm -rf /root/linux-{{ salt['grains.get']('osarch') }}
       - chmod +x /usr/local/bin/govc
       - chown root:root /usr/local/bin/govc
     - runas: root

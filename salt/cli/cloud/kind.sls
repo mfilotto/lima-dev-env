@@ -2,7 +2,7 @@ kind_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/kind
-      - curl -Lo /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/{{ pillar['kind']['version'] }}/kind-linux-amd64
+      - curl -Lo /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/{{ pillar['kind']['version'] }}/kind-linux-{{ salt['grains.get']('osarch') }}
       - chmod +x /usr/local/bin/kind
     - runas: root
     - unless:

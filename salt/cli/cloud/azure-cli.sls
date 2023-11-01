@@ -17,9 +17,14 @@ azure-cli-repo-installed:
     - unless:
       - which az
       - az version | grep {{ pillar['azure-cli']['version'] }}
+    - require:
+      - cmd: azure-cli-signing-key-installed
 
 azure-cli-installed:
   pkg.installed:
     - name: azure-cli
     - version: {{ pillar['azure-cli']['version'] }}-1~{{ grains['oscodename'] }}
     - runas: root
+    - require:
+      - cmd: azure-cli-signing-key-installed
+      - cmd: azure-cli-repo-installed

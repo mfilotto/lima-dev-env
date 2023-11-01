@@ -2,11 +2,11 @@ velero-installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/velero
-      - curl -L https://github.com/vmware-tanzu/velero/releases/download/{{ pillar['velero']['version'] }}/velero-{{ pillar['velero']['version'] }}-linux-amd64.tar.gz | tar xzvf - velero-{{ pillar['velero']['version'] }}-linux-amd64/velero
-      - mv /root/velero-{{ pillar['velero']['version'] }}-linux-amd64/velero /usr/local/bin/velero
+      - curl -L https://github.com/vmware-tanzu/velero/releases/download/{{ pillar['velero']['version'] }}/velero-{{ pillar['velero']['version'] }}-linux-{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - velero-{{ pillar['velero']['version'] }}-linux-{{ salt['grains.get']('osarch') }}/velero
+      - mv /root/velero-{{ pillar['velero']['version'] }}-linux-{{ salt['grains.get']('osarch') }}/velero /usr/local/bin/velero
       - chown root:root /usr/local/bin/velero
       - chmod u+x /usr/local/bin/velero
-      - rm -rf /root/velero-{{ pillar['velero']['version'] }}-linux-amd64
+      - rm -rf /root/velero-{{ pillar['velero']['version'] }}-linux-{{ salt['grains.get']('osarch') }}
     - unless: 
       - which velero
       - velero version --client-only | tail -n 2 | head -n 1 | cut -d " " -f2 | grep {{ pillar['velero']['version'] }}

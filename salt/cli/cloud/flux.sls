@@ -2,7 +2,7 @@ flux_installed:
   cmd.run:
     - names:
       - rm -rf /usr/local/bin/flux
-      - curl -L https://github.com/fluxcd/flux2/releases/download/v{{ pillar['flux']['version'] }}/flux_{{ pillar['flux']['version'] }}_Linux_amd64.tar.gz | tar xzvf - -C /usr/local/bin
+      - curl -L https://github.com/fluxcd/flux2/releases/download/v{{ pillar['flux']['version'] }}/flux_{{ pillar['flux']['version'] }}_Linux_{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin
       - chown root:root /usr/local/bin/flux
     - runas: root
     - unless:

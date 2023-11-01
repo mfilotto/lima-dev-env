@@ -1,7 +1,7 @@
 nova_installed:
   cmd.run:
     - names:
-      - rm -rf /usr/local/bin/nova && curl -L https://github.com/FairwindsOps/nova/releases/download/{{ pillar['nova']['version'] }}/nova_{{ pillar['nova']['version'] }}_linux_amd64.tar.gz | tar xzvf - -C /usr/local/bin && chown root:root /usr/local/bin/nova
+      - rm -rf /usr/local/bin/nova && curl -L https://github.com/FairwindsOps/nova/releases/download/{{ pillar['nova']['version'] }}/nova_{{ pillar['nova']['version'] }}_linux_{{ salt['grains.get']('osarch') }}.tar.gz | tar xzvf - -C /usr/local/bin && chown root:root /usr/local/bin/nova
     - runas: root
     - unless:
         # asserts ark is on our path

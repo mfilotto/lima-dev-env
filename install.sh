@@ -32,15 +32,26 @@ then
 fi
 
 WORKSPACE="$HOME/workspace"
-printmainstep "Install lima with brew"
-brew install lima
+
+if ! command -v jq &> /dev/null
+then
+    printmainstep "Install jq with brew"
+    brew install jq
+fi
+
+if ! command -v lima &> /dev/null
+then
+    printmainstep "Install lima with brew"
+    brew install lima
+fi
 
 printmainstep "Create workspace folder $WORKSPACE"
 mkdir -p $WORKSPACE
 
 if ! limactl list -q | grep -q default; then
     printmainstep "Create your distro"
-    cat /usr/local/share/lima/examples/ubuntu-lts.yaml | sed 's/~/~\/workspace/g' | sed -e '/.*~\/workspace.*/a\
+    TEMPLATE=$(limactl info | jq -r '.templates[] | select(.name=="ubuntu-lts")'.location)
+    cat $TEMPLATE | sed 's/~/~\/workspace/g' | sed -e '/.*~\/workspace.*/a\
   writable: true' | limactl start --name=default --tty=false -
 fi
 
@@ -53,8 +64,8 @@ else
 fi
 
 printmainstep "Add Saltstack apt source file"
-limactl shell --debug default sh -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
-limactl shell --debug default sh -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/amd64/latest `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/salt.list'
+limactl shell --debug default sh -c 'sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/`dpkg --print-architecture`/SALT-PROJECT-GPG-PUBKEY-2023.gpg'
+limactl shell --debug default sh -c 'echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=`dpkg --print-architecture`] https://repo.saltproject.io/salt/py3/ubuntu/`lsb_release -rs`/`dpkg --print-architecture`/latest `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/salt.list'
 
 printmainstep "Update packages"
 lima sudo apt update

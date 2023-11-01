@@ -24,7 +24,7 @@ docker-required-packages:
 #   file.managed:
 #     - name: /etc/apt/sources.list.d/artifactory.list
 #     - contents: |
-#         deb [arch=amd64] {{ pillar['artifactory']['repos']['docker-yum'] | format( user, password ) }}
+#         deb [arch={{ salt['grains.get']('osarch') }}] {{ pillar['artifactory']['repos']['docker-yum'] | format( user, password ) }}
 #         proxy=_none_
 # {% else %}
 # docker-repo:
