@@ -6,5 +6,6 @@ include:
   - .k9s
   - .kubectl
   - .ksd
+  - .sops
   - .terraform
   - .velero
