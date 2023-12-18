@@ -8,6 +8,7 @@ fzf_cloned:
     - user: {{ username }}
     - rev: master
     - depth: 1
+    - force_fetch: True
 
 fzf_installed:
   cmd.run:
