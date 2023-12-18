@@ -1,4 +1,4 @@
-# Default pillar values
+# Defaut pillar values
 userhome: /home/%s.linux
 
 locale: fr_FR.UTF-8
@@ -57,7 +57,7 @@ kind:
   version: v0.16.0
 
 flux:
-  version: 0.41.1
+  version: 2.0.1
 
 gitops:
   version: v0.10.0
