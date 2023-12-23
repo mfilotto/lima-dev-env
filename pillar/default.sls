@@ -109,6 +109,9 @@ terraform:
 yq:
   version: 4.29.2
 
+google-cloud-cli:
+  version: 458.0.1
+
 n:
   version: 6.4.0
 
