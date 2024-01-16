@@ -78,6 +78,15 @@ kube-ps1_profile_installed:
      - unless:
          - cat {{ userhome }}/.bashrc | grep "/opt/kube-ps1/kube-ps1.sh"
 
+k-alias_profile_installed:
+   cmd.run:
+     - names:
+       - echo "" >> {{ userhome }}/.bashrc
+       - echo "alias k=kubectl" >> {{ userhome }}/.bashrc
+       - echo "complete -o default -F __start_kubectl k" >> {{ userhome }}/.bashrc
+     - unless:
+         - cat {{ userhome }}/.bashrc | grep "__start_kubectl"
+
 stern_installed:
   cmd.run:
     - names:
