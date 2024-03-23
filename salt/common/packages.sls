@@ -1,6 +1,7 @@
 common_packages:
   pkg.latest:
     - pkgs:
+      - bat
       #- curl
       #- wget
       #- htop
@@ -14,6 +15,11 @@ common_packages:
       - tree
       #- nmap-ncat
       #- telnet
+
+batcat_symlinked:
+  file.symlink:
+    - name: /usr/bin/bat
+    - target: /usr/bin/batcat
 
 git-color-config:
   cmd.run:
